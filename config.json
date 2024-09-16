@@ -1,0 +1,5 @@
+{
+    "token": "PROVIDE BOT TOKEN",
+    "region": "PROVIDE REGION ex. PL, US !!!ONLY ONE REGION!!!",
+    "language": "PROVIDE LANGUAGE ex. pl, en !!!ONLY ONE LANGUAGE!!! !!!MAKE SURE TO HAVE LANGUAGE USED IN THE REGION!!!"
+}
