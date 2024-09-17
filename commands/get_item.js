@@ -27,7 +27,7 @@ module.exports = {
 				break;
 			};
 		};
-		let DP = new Data_Process(response);
+		let DP = new Data_Process(response["objects"]);
 		let Sizes = DP.get_sizes()
 
 		const Embed = new EmbedBuilder()
