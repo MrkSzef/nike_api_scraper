@@ -2,6 +2,8 @@
     "token": "PROVIDE BOT TOKEN",
     "region": "PROVIDE REGION ex. PL, US !!!ONLY ONE REGION!!!",
     "language": "PROVIDE LANGUAGE ex. pl, en !!!ONLY ONE LANGUAGE!!! !!!MAKE SURE TO HAVE LANGUAGE USED IN THE REGION!!!",
+    "clientId":"POVIDE CLIENT ID OF YOUR APP",
+    "guildId":"PROVIDE ID OF GUILD YOU ARE USING THIS APP ON",
     "channels":[
         "008be467-6c78-4079-94f0-70e2d6cc4003",
         "16134d36-74f2-11ea-bc55-00242ac13000",
