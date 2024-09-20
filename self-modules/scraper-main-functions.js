@@ -72,6 +72,36 @@ class Data_Process {
 			console.log(error);
 		}
 	}
+	get_avg_stock(){
+		try {
+			let overall_value = 0
+			const number_of_stock_levels = this.dane["productInfo"][0]["skus"].length
+			const level_map = {
+				"OOS":0,
+				"LOW":1,
+				"MEDIUM":2,
+				"HIGH":3
+			}
+	
+			for (let index = 0; index < number_of_stock_levels; index++) {
+				const LEVEL = this.dane["productInfo"][0]["availableGtins"][index]["level"]
+				overall_value += level_map[LEVEL]
+			}
+			const avgValue = overall_value/number_of_stock_levels
+			if (avgValue <= 0.25) {
+				return "MOSTLY [2;30mOOS[0m";
+			} else if (avgValue <= 1.25) {
+				return "[2;31mLOW[0m";
+			} else if (avgValue <= 2.25) {
+				return "[2;33mMEDIUM[0m";
+			} else {
+				return "[2;32mHIGH[0m";
+			}
+			
+		} catch (error) {
+			return "NO DATA"
+		}
+	}
 	get_status(){
 		try{return "\n[1;2mStatus:[0m "+this.dane["productInfo"][0]["merchProduct"]["status"]}
 		catch{return ""}
