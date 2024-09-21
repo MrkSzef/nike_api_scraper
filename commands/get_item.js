@@ -4,7 +4,6 @@ const fetch  =  require("node-fetch");
 const { region, language, channels } = require('../config.json');
 
 
-
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('check')

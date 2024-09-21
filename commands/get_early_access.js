@@ -38,8 +38,5 @@ module.exports = {
             Embed.setFields({ name: "No Early Access Products", value: "Try Again Later 😎🔥",inline:true});
         }
         await interaction.reply({ embeds: [Embed] });
-
-        
-
     }
 }

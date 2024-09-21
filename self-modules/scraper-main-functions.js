@@ -20,9 +20,6 @@ class Data_Process {
 		}
 	};
 
-	
-	
-	
     get_title(){
 		try{return this.dane["productInfo"][0]["productContent"]["title"]+"\n"+this.dane["productInfo"][0]["productContent"]["colorDescription"];}
 		catch{return this.dane["productInfo"][0]["merchProduct"]["styleColor"];}
