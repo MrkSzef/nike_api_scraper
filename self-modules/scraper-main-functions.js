@@ -135,6 +135,14 @@ class Data_Process {
 			return ''
 		}
 	};
+	get_gtin_translation(){
+		let dict = {};
+		let SKUS = Array.from(this.dane["productInfo"][0]["skus"])
+		for (let i = 0; i < data.length; i++) {
+			dict[data[i]["gtin"]] = data[i]["countrySpecifications"][0]["localizedSize"]
+		}
+		return dict;
+	}
 	get_size_range(){
 		try{return "\n[1;2mSize Range:[0m "+this.dane["productInfo"][0]["skus"][0]["countrySpecifications"][0]["localizedSize"]+" - "+this.dane["productInfo"][0]["skus"].reverse()[0]["countrySpecifications"][0]["localizedSize"]
 	}
