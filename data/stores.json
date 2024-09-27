@@ -1,0 +1,32 @@
+{
+   "stores": [
+        {"name":"Poznan Nike Factory Store","value":"52ae4059-849e-4866-a058-85b55e5a2cea"},
+        {"name":"Nike Store Poznan Stary Browar Atrium (Partnered)","value":"574a2283-afe4-409b-987e-0b58f05ea9de"},
+        {"name":"Nike By Rataje (Partnered)","value":"156477e0-7819-4c7d-a9cf-6c28a0b6e4d0"},
+        {"name":"Nike Store Bydgoszcz Zielone Arkady (Partnered)","value":"c7e68712-4a73-4c6c-9e02-c420125ffdd6"},
+        {"name":"Nike Factory Store - Wroclaw","value":"fd37556d-0307-4b51-919e-c0f0c36df946"},
+        {"name":"Nike Store Wrocław Galeria Wroclavia (Partnered)","value":"b85775cf-8428-42fb-bd30-1d9911fd2c4c"},
+        {"name":"Nike Store Czestochowa Galeria Jurajska (Partnered)","value":"160eda0d-ed37-4003-bf8b-d6bff5e16997"},
+        {"name":"Nike Store Katowice Galeria Katowicka (Partnered)","value":"164b28eb-e860-494c-937a-d8870b635e76"},
+        {"name":"Nike Store Bielsko Biala Gal. Sfera (Partnered)","value":"1e0a0be0-7ae9-442d-9b5c-fadcaae81b19"},
+        {"name":"Nike Store Wroclaw Magnolia Park (Partnered)","value":"5ce507a7-0c43-4d0d-85b1-418369176be1"},
+        {"name":"Nike Store Katowice Silesia City Center (Partnered)","value":"780990b7-6787-4c73-bd1c-3b0f921a7ec3"},
+        {"name":"Szczecin Nike Factory Store","value":"8eb4c86a-c0ce-4ceb-95c9-dbb598c08923"},
+        {"name":"Nike Factory Store Ptak","value":"2ff935eb-0aa9-4606-8bc1-9ad2c59ce935"},
+        {"name":"Adrenaline Kaskada Szczecin","value":"05646909-1bf2-4416-81aa-90070b3f123a"},
+        {"name":"Nike Unite Gdansk","value":"2d7948dd-d0cc-4b6a-be75-30f9c3ff5d17"},
+        {"name":"Nike Store Gdansk Forum Radunia (Partnered)","value":"490972f1-306a-45c6-8888-f3241499f713"},
+        {"name":"Nike Store Gdańsk Galeria Bałtycka (Partnered)","value":"67d31bc3-0b90-435b-a360-2ebe366846a0"},
+        {"name":"Nike Store Gdynia Riviera (Partnered)","value":"3384ad75-c24c-42b2-94a3-3ab3aca29bd5"},
+        {"name":"Ursus Nike Factory Store","value":"222fcc4b-5154-4657-97ed-53b9ab1a1433"},
+        {"name":"Nike Store Arkadia (Partnered)","value":"fab0a4bf-f38d-4b3c-8433-0cdd56852330"},
+        {"name":"Nike Store Zlote Tarasy (Partnered)","value":"86ecc589-9c15-4924-ab3b-81aa10c09bf4"},
+        {"name":"Nike Store Mokotov (Partnered)","value":"3170a588-c13f-4ffa-8cb2-23f576e6f012"},
+        {"name":"Warsaw Annopol Nike Factory Store","value":"7b68a5ad-f43a-4daf-b5d5-4c75be1e38bb"},
+        {"name":"Nike Factory Store Warsaw Fashion House","value":"29717ebb-3554-41be-9c72-8209548a0765"},
+        {"name":"Sosnowiec Nike Factory Store","value":"dfac9e6e-6788-4824-892a-b73801c526d5"},
+        {"name":"Nike Store Royal Wilanow (Partnered)","value":"015dd510-1cc5-439e-9571-c79f3855df5c"},
+        {"name":"Krakow Nike Factory Store","value":"f67285bf-935a-493a-9b18-74609f98ea57"},
+        {"name":"Nike By Krakowska (Partnered)","value":"da532b55-3d17-457c-baca-90671aab66b2"}
+        ]
+}
