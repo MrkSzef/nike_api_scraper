@@ -138,8 +138,8 @@ class Data_Process {
 	get_gtin_translation(){
 		let dict = {};
 		let SKUS = Array.from(this.dane["productInfo"][0]["skus"])
-		for (let i = 0; i < data.length; i++) {
-			dict[data[i]["gtin"]] = data[i]["countrySpecifications"][0]["localizedSize"]
+		for (let i = 0; i < SKUS.length; i++) {
+			dict[SKUS[i]["gtin"]] = SKUS[i]["countrySpecifications"][0]["localizedSize"]
 		}
 		return dict;
 	}
