@@ -1,10 +1,15 @@
-const { SlashCommandBuilder, EmbedBuilder, Options, inlineCode, channelLink  } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, Options, inlineCode, channelLink, Embed  } = require('discord.js');
 const { Data_Process } = require('../self-modules/scraper-main-functions');
 let { stores } = require('../data/stores.json')
 const { region, language, channels } = require('../config.json');
 
-
+// Setting Up Store List
 stores = stores.slice(0,24);
+var reverse_store_list = {};
+for (let i = 0; i < stores.length; i++) {
+    reverse_store_list[stores[i]["value"]] = stores[i]["name"];
+}
+
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -22,7 +27,8 @@ module.exports = {
     async execute(interaction) {
         const sku = interaction.options.getString('sku');
         const store = interaction.options.getString('store');
-        let gtin_translation
+        let gtin_translation;
+        let DP;
 
         const response = await fetch(
             `https://api.nike.com/deliver/available_gtins/v3?filter=styleColor(${sku})&filter=storeId(${store})&filter=method(INSTORE)`,
@@ -57,11 +63,42 @@ module.exports = {
         }
 
         
-        let data = (await response.json())['objects'];
+        var data = (await response.json())['objects'];
         data = await Array.from(data).map(elm => {
             return [gtin_translation[elm['gtin']],elm['level']]
-        })
+        }).sort((a, b) => a[0] - b[0])
         
-        interaction.reply({ content: data.sort((a, b) => a[0] - b[0]).join("\n") }); 
+        // Process Size Data And Create Embed
+        
+        
+        const Embed = new EmbedBuilder()
+        .setColor(0x307894)
+        .setTitle(DP.get_title())
+        .setAuthor({ name: DP.get_sku()})
+        .setDescription(
+            '```ansi\n'
+            +DP.get_price()
+            +DP.get_full_region()
+            +`\n[1;2mStore:[0m ${reverse_store_list[store]}`
+            +"```"
+        )
+        data = await data.map(elm => [elm[0],elm[1]
+            .replace("LOW","[2;31mLOW[0m")
+            .replace("MEDIUM","[2;33mMEDIUM[0m")
+            .replace("HIGH","[2;32mHIGH[0m")
+            .replace("OOS","[2;30mOOS[0m")].join(": ")
+        );
+        
+        if (data.length > 14) {
+            const dl = Math.ceil(data.length / 2);
+            Embed.addFields({ name: "Sizes", value: '```ansi\n'+data.slice(0, dl).join("\n")+'```',inline:true});
+            Embed.addFields({ name: "Sizes", value: '```ansi\n'+data.slice(dl,data.length).join("\n")+'```',inline:true});
+        }
+        else if (data.length <= 14) {
+            Embed.addFields({ name: "Sizes", value: '```ansi\n'+data.join("\n")+'```',inline:true});
+        }
+        
+
+        interaction.reply({ embeds: [Embed] }); 
     }
 }
