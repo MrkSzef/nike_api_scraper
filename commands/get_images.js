@@ -17,7 +17,6 @@ async function areImagesIdentical(img1Buffer, img2Buffer) {
       return false;
     }
 
-    // Compare the pixel data
     const img1Data = img1.data;
     const img2Data = img2.data;
 
@@ -76,7 +75,7 @@ module.exports = {
             console.log('Duplicates of imageBuffers[1] found at indices:', duplicates);
             const combinedImage = await sharp({
               create: {
-                width: 400*7,
+                width: 400*(Math.floor(imageBuffers.length/4)+1),
                 height: 400*4,
                 channels: 4,
                 background: { r: 255, g: 255, b: 255, alpha: 0 }
@@ -89,11 +88,14 @@ module.exports = {
               })))
               .png()
               .toBuffer();
-        
+              
               const attachment = new AttachmentBuilder(combinedImage, { name: 'image.png' });
-        
-              // Reply to the interaction with the combined image
-              await interaction.reply({ files: [attachment] });
+
+              try {
+                await interaction.reply({ files: [attachment] });
+              } catch (error) {
+                await interaction.reply({content: 'No Such Product in This Store', ephemeral: true });
+              }
             } catch (error) {
               console.error('Error fetching images');
               await interaction.reply({ ephemeral: true });

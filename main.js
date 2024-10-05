@@ -6,13 +6,6 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.commands = new Collection();
 
 
-
-
-
-
-
-client.commands = new Collection();
-
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js')); 
 
@@ -51,4 +44,3 @@ client.on(Events.InteractionCreate, async interaction => {
 
 
 client.login(token);
-    
