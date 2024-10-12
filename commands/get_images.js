@@ -15,9 +15,16 @@ module.exports = {
         .setDescription('Get All Images Of Product'),
     async execute(interaction) {
         const sku = interaction.options.getString('sku');
-        const response = await get_images(skuValidation(sku,1));
+        let responses = skuValidation(sku,4).map((el) => {return get_images(el)});
+        responses = await Promise.all(responses).then((res) => {return res})
+        console.log(responses);
+        
+        interaction.reply({ files: responses });
+
+
+        return;
         if (response !== FetchError) {
-          interaction.reply({ files: [response] });
+          interaction.reply({ files: [responses] });
           return;
         }
         console.log(response);

@@ -29,19 +29,19 @@ async function areImagesIdentical(img1Buffer, img2Buffer) {
   }
   
 async function findDuplicatesOfImage(imageBuffers) {
-const targetImageBuffer = imageBuffers[1];
-const duplicateIndices = [];
+  const targetImageBuffer = imageBuffers[1];
+  const duplicateIndices = [];
 
-for (let i = 0; i < imageBuffers.length; i++) {
-    if (i !== 1) {
-    const isDuplicate = await areImagesIdentical(targetImageBuffer, imageBuffers[i]);
-    if (isDuplicate) {
-        duplicateIndices.push(i);
-    }
-    }
-}
+  for (let i = 0; i < imageBuffers.length; i++) {
+      if (i !== 1) {
+      const isDuplicate = await areImagesIdentical(targetImageBuffer, imageBuffers[i]);
+      if (isDuplicate) {
+          duplicateIndices.push(i);
+      }
+      }
+  }
 
-return duplicateIndices;
+  return duplicateIndices;
 }
   
 
@@ -84,7 +84,7 @@ async function get_images(sku,photoIDs = 'abcdefghijklmnopqrstuvwxyz') {
           .png()
           .toBuffer();
           
-          const attachment = new AttachmentBuilder(combinedImage, { name: 'image.png' });
+          const attachment = new AttachmentBuilder(combinedImage, { name: `image_${Math.floor(Math.random() * 999999)}.png` });
     
           return attachment;
     
