@@ -1,53 +1,9 @@
-const { SlashCommandBuilder, AttachmentBuilder } = require("discord.js");
-const fetch  =  require("node-fetch");
-const sharp = require('sharp');
+const { SlashCommandBuilder } = require("discord.js");
+const { FetchError } = require("node-fetch");
+const { get_images } = require('../self-modules/image-generator');
+const { skuValidation } = require('../self-modules/validators');
 
-async function areImagesIdentical(img1Buffer, img2Buffer) {
-  try {
-    const [img1, img2] = await Promise.all([
-      sharp(img1Buffer).raw().toBuffer({ resolveWithObject: true }),
-      sharp(img2Buffer).raw().toBuffer({ resolveWithObject: true })
-    ]);
 
-    if (
-      img1.info.width !== img2.info.width ||
-      img1.info.height !== img2.info.height ||
-      img1.info.channels !== img2.info.channels
-    ) {
-      return false;
-    }
-
-    const img1Data = img1.data;
-    const img2Data = img2.data;
-
-    return img1Data.equals(img2Data);
-  } catch (error) {
-    console.error('Error comparing images:', error);
-    return false;
-  }
-}
-
-async function findDuplicatesOfImage(imageBuffers) {
-  const targetImageBuffer = imageBuffers[1];
-  const duplicateIndices = [];
-
-  for (let i = 0; i < imageBuffers.length; i++) {
-    if (i !== 1) {
-      const isDuplicate = await areImagesIdentical(targetImageBuffer, imageBuffers[i]);
-      if (isDuplicate) {
-        duplicateIndices.push(i);
-      }
-    }
-  }
-
-  return duplicateIndices;
-}
-
-const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
-var IMAGE_API_URLS = [];
-for (let index = 0; index < alphabet.length; index++) {
-    IMAGE_API_URLS.push((sku)=>{return`https://images.nike.com/is/image/DotCom/${sku.replace("-","_")}_${alphabet[index].toUpperCase()}_PREM?fmt=png-alpha`});
-}
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -59,46 +15,13 @@ module.exports = {
         .setDescription('Get All Images Of Product'),
     async execute(interaction) {
         const sku = interaction.options.getString('sku');
-        try {
-            // Fetch images from the URLs
-            const imageBuffers = await Promise.all(IMAGE_API_URLS.map(async (url) => {
-                const response = await fetch(url(sku));
-                if (!response.ok) throw new Error(`Failed to fetch image from ${url}`);
-                const arrayBuffer = await response.arrayBuffer();
-                return Buffer.from(arrayBuffer);
-              }));
-              
-            const duplicates = await findDuplicatesOfImage(imageBuffers);
-            for (let i = 0; i < duplicates.length; i++) {
-              imageBuffers.pop(duplicates[i]);
-            }
-            console.log('Duplicates of imageBuffers[1] found at indices:', duplicates);
-            const combinedImage = await sharp({
-              create: {
-                width: 400*(Math.floor(imageBuffers.length/4)+1),
-                height: 400*4,
-                channels: 4,
-                background: { r: 255, g: 255, b: 255, alpha: 0 }
-              }
-            })
-            .composite(imageBuffers.map((buffer, index) => ({
-                input: buffer,
-                left: Math.floor(index/4) * 400,
-                top: 400 * (index%4),
-              })))
-              .png()
-              .toBuffer();
-              
-              const attachment = new AttachmentBuilder(combinedImage, { name: 'image.png' });
-
-              try {
-                await interaction.reply({ files: [attachment] });
-              } catch (error) {
-                await interaction.reply({content: 'No Such Product in This Store', ephemeral: true });
-              }
-            } catch (error) {
-              console.error('Error fetching images');
-              await interaction.reply({ ephemeral: true });
-            }
+        const response = await get_images(skuValidation(sku,1));
+        if (response !== FetchError) {
+          interaction.reply({ files: [response] });
+          return;
+        }
+        console.log(response);
+        
+        interaction.reply({ content: 'No Images Found', ephemeral: true });
     }
 }

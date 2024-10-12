@@ -1,7 +1,8 @@
 const { SlashCommandBuilder, EmbedBuilder, Options, inlineCode, channelLink  } = require('discord.js');
 const { Data_Process } = require('../self-modules/scraper-main-functions');
-const fetch  =  require("node-fetch");
+const { get_images } = require('../self-modules/image-generator');
 const { region, language, channels } = require('../config.json');
+const fetch  =  require("node-fetch");
 
 
 module.exports = {
