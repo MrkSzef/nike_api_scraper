@@ -84,10 +84,8 @@ async function get_images(sku,photoIDs = 'abcdefghijklmnopqrstuvwxyz') {
           .png()
           .toBuffer();
           
-          const attachment = new AttachmentBuilder(combinedImage, { name: `image_${Math.floor(Math.random() * 999999)}.png` });
-    
-          return attachment;
-    
+          return new AttachmentBuilder(combinedImage, { name: `image_${Math.floor(Math.random() * 999999)}.png` });
+          
         } catch (error) {
             return error;
         }
