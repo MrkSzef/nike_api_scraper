@@ -1,6 +1,11 @@
 const sharp = require("sharp");
 const fetch  =  require("node-fetch");
 const { AttachmentBuilder } = require("discord.js");
+const { AllowDuplicates } = require('../data/image_creation_config.json');
+
+
+
+
 
 
 async function areImagesIdentical(img1Buffer, img2Buffer) {
@@ -27,7 +32,7 @@ async function areImagesIdentical(img1Buffer, img2Buffer) {
       return false;
     }
   }
-  
+
 async function findDuplicatesOfImage(imageBuffers) {
   const targetImageBuffer = imageBuffers[1];
   const duplicateIndices = [];
@@ -43,12 +48,12 @@ async function findDuplicatesOfImage(imageBuffers) {
 
   return duplicateIndices;
 }
-  
 
 
 
 
-async function get_images(sku,photoIDs = 'abcdefghijklmnopqrstuvwxyz') {
+
+async function get_images(sku,photoIDs = 'abcdefhkpz') {
     photoIDs = photoIDs.toLowerCase().split('');
     var IMAGE_API_URLS = [];
     for (let index = 0; index < photoIDs.length; index++) {
@@ -65,7 +70,7 @@ async function get_images(sku,photoIDs = 'abcdefghijklmnopqrstuvwxyz') {
           
         const duplicates = await findDuplicatesOfImage(imageBuffers);
         for (let i = 0; i < duplicates.length; i++) {
-          imageBuffers.pop(duplicates[i]);
+          if(!AllowDuplicates) imageBuffers.pop(duplicates[i]);
         }
         console.log('Duplicates of imageBuffers[1] found at indices:', duplicates);
         const combinedImage = await sharp({

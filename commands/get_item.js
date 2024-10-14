@@ -49,6 +49,7 @@ module.exports = {
 			+DP.get_sizing_prefix()
 			+'```'
 		)
+		.setImage(await get_images(sku,"abcd"))
 		.setThumbnail('https://images.nike.com/is/image/DotCom/'+sku.replace('-','_')+'_A_PREM?fmt=png-alpha')
 		.setTimestamp()
 		.setFooter({ text: 'Made By marekszef'});
