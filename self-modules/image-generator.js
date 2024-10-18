@@ -76,15 +76,15 @@ async function get_images(sku,photoIDs = 'abcdefhkpz') {
         const combinedImage = await sharp({
           create: {
             width: 400*(Math.floor(imageBuffers.length/4)+1),
-            height: 400*4,
+            height: (imageBuffers.length>4) ? 1600 : 800,
             channels: 4,
             background: { r: 255, g: 255, b: 255, alpha: 0 }
           }
         })
         .composite(imageBuffers.map((buffer, index) => ({
             input: buffer,
-            left: Math.floor(index/4) * 400,
-            top: 400 * (index%4),
+            left: Math.floor((imageBuffers.length>4) ? index/4 : index/2) * 400,
+            top: 400 * ((imageBuffers.length>4) ? index%4 : index%2),
           })))
           .png()
           .toBuffer();
